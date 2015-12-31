@@ -25,8 +25,8 @@ class simplelearn(DynamicPolicy):
 
     def __init__(self):
         super(simplelearn,self).__init__()
-    	self.flood = flood()           # REUSE A SINGLE FLOOD INSTANCE
-	self.query = packets(1,['srcmac','switch'])
+        self.flood = flood()           # REUSE A SINGLE FLOOD INSTANCE
+        self.query = packets(1,['srcmac','switch'])
         self.query.register_callback(self.learn_new_MAC)
         self.forward = self.flood  # REUSE A SINGLE FLOOD INSTANCE
         self.update_policy()

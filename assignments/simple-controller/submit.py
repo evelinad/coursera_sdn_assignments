@@ -198,4 +198,5 @@ def output(partIdx):
     
   return outputString.strip()
 
-submit()
+print "========= RESULT ============\n" + output(0)
+#submit()

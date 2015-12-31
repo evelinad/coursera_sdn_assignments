@@ -1,3 +1,4 @@
+#week 6
 <span class="c8">In this exercise, you will be working with</span> <span class="c8 c6">Pyretic</span><span class="c8">, a new programmer-friendly domain-specific language embedded in Python. It provides a runtime system that enables programmers to specify network policies at a high level of abstraction, compose them together in a variety of ways, and execute them on abstract topologies. As in week 4, this week you will be taken through the steps of writing network applications i.e., hub and layer 2 MAC learning on Pyretic and testing them using Mininet. The purpose of this exercise is to show you that there is no single way of writing such applications. New runtime systems are being developed, which provide richer abstractions and tools to express your network applications --- Pyretic is one such example.</span>
 
 <span class="c8"></span>
