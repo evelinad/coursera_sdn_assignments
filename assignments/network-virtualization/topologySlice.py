@@ -41,8 +41,28 @@ class TopologySlice (EventMixin):
         log.debug("Switch %s has come up.", dpid)
 
         """ Add your logic here """
+        def add_drop_rule(mac_src, mac_dst):
+            msg = of.ofp_flow_mod()
+            msg.priority = of.OFP_DEFAULT_PRIORITY + 200
+            msg.match = of.ofp_match(dl_src=mac_src, dl_dst=mac_dst)
+            msg.actions.append(of.ofp_action_output(port = of.OFPP_NONE))
+            event.connection.send(msg)
 
+        sw_dpid = {1: '00-00-00-00-00-01',
+                   2: '00-00-00-00-00-02',
+                   3: '00-00-00-00-00-03',
+                   4: '00-00-00-00-00-04'}
 
+        if dpid == sw_dpid[1]:
+            add_drop_rule(mac_src=EthAddr('00:00:00:00:00:01'), mac_dst=EthAddr('00:00:00:00:00:02'))
+            add_drop_rule(mac_src=EthAddr('00:00:00:00:00:02'), mac_dst=EthAddr('00:00:00:00:00:01'))
+            add_drop_rule(mac_src=EthAddr('00:00:00:00:00:01'), mac_dst=EthAddr('00:00:00:00:00:04'))
+            add_drop_rule(mac_src=EthAddr('00:00:00:00:00:02'), mac_dst=EthAddr('00:00:00:00:00:03'))
+        if dpid == sw_dpid[4]:
+            add_drop_rule(mac_src=EthAddr('00:00:00:00:00:03'), mac_dst=EthAddr('00:00:00:00:00:04'))
+            add_drop_rule(mac_src=EthAddr('00:00:00:00:00:04'), mac_dst=EthAddr('00:00:00:00:00:03'))
+            add_drop_rule(mac_src=EthAddr('00:00:00:00:00:03'), mac_dst=EthAddr('00:00:00:00:00:02'))
+            add_drop_rule(mac_src=EthAddr('00:00:00:00:00:04'), mac_dst=EthAddr('00:00:00:00:00:01'))
 
 
 def launch():
